@@ -1,5 +1,5 @@
 # MongoDB Zabbix monitorign plugin
-
+说明：php神马的可以直接装在zabbix server上，我整个过程都做在zabbix server上了
 Overview
 ========
 
@@ -8,7 +8,7 @@ The *MongoDB Plugin* can be used to monitor standalone, replicated as well as cl
 
 Setup and Configuration
 =======================
-
+一、先安装php等，这个应该都能看懂吧。
 The MongoDB plugin uses the MongoDB PHP driver which needs to be installed on the Zabbix server.  For this, install and setup the following packages:
 
 * **php5-dev (or php5-devel)** = Files for PHP5 module development
@@ -46,7 +46,7 @@ Download the MongoDB Plugin shell script and php file from [https://github.com/n
 
 Next open up a browser and download the MongoDB Zabbix template.
 Now login to the Zabbix frontend (if it still has the default user and password, then it should be Admin/zabbix).
-
+二、现在导入mikoomi的模版
 Navigate as follows: 
 
 * Configuration >> Templates
@@ -76,6 +76,23 @@ Follow these steps to start monitoring a MongoDB server
   * Click **Save**
 * Setting up the MongoDB server node
   * Add something like this (look out especially for the **ZABBIX_HOSTNAME** variable, which must meet the name of the node in the Zabbix server which we attached the template to in the previous steps) the following to the Zabbix user's crontab:
+三、这里有点坑，我这有5台mongo，我全做zabbix server上，过程如下：
+在计划任务里面添加每分钟运行
+mikoomi-mongodb-plugin.sh -H zabbix server的ip -P 10051 -z mongo的主机，在zabbix里面添加时候的Host name -h 当然是你的mongodb的ip -p 27017
+你有多少台mongo就加多少计划任务，计划任务添加完，去/tmp下面看mikoomi-mongodb-plugin.php_xxxx.data和mikoomi-mongodb-plugin.php_xxxx.log，如果日志没有报错就大功告成了！
+下面是mikoomi的命令帮助
+mikoomi-mongodb-plugin.php Version 0.4
+Usage : mikoomi-mongodb-plugin.php [-D] [-h <mongoDB Server Host>] [-p <mongoDB Port>] [--ssl] [-u <username>] [-x <password>] [-H <Zabbix Server ip/hostname>] [-P <Zabbix Server Port>] -z <Zabbix_Name>
+where
+   -D    = Run in detail/debug mode
+   -h    = Hostname or IP address of server running MongoDB
+   -p    = Port number on which to connect to the mongod or mongos process
+   -z    = Name (hostname) of MongoDB instance or cluster in the Zabbix UI
+   -u    = User name for database authentication
+   -x    = Password for database authentication
+   -H    = Zabbix server IP or hostname
+   -P    = Zabbix server Port or hostname
+   --ssl = Use SSL when connecting to MongoDB
 ```
 ZABBIX_HOSTNAME=$(hostname -f)
 * * * * * /etc/zabbix/externalscripts/mikoomi-mongodb-plugin.sh -z $ZABBIX_HOSTNAME
