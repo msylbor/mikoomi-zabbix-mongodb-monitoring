@@ -48,6 +48,7 @@ Download the MongoDB Plugin shell script and php file from [https://github.com/n
 
 Next open up a browser and download the MongoDB Zabbix template.
 Now login to the Zabbix frontend (if it still has the default user and password, then it should be Admin/zabbix).
+
 二、现在导入mikoomi的模版
 
 Navigate as follows: 
