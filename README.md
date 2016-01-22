@@ -10,6 +10,7 @@ The *MongoDB Plugin* can be used to monitor standalone, replicated as well as cl
 Setup and Configuration
 =======================
 一、先安装php等，这个应该都能看懂吧。
+
 The MongoDB plugin uses the MongoDB PHP driver which needs to be installed on the Zabbix server.  For this, install and setup the following packages:
 
 * **php5-dev (or php5-devel)** = Files for PHP5 module development
