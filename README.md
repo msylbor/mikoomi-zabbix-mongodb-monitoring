@@ -79,6 +79,7 @@ Follow these steps to start monitoring a MongoDB server
   * Click **Save**
 * Setting up the MongoDB server node
   * Add something like this (look out especially for the **ZABBIX_HOSTNAME** variable, which must meet the name of the node in the Zabbix server which we attached the template to in the previous steps) the following to the Zabbix user's crontab:
+
 三、这里有点坑，我这有5台mongo，我全做zabbix server上，过程如下：
 
 在计划任务里面添加每分钟运行
@@ -90,17 +91,30 @@ mikoomi-mongodb-plugin.sh -H zabbix server的ip -P 10051 -z mongo的主机，在
 下面是mikoomi的命令帮助
 
 mikoomi-mongodb-plugin.php Version 0.4
-Usage : mikoomi-mongodb-plugin.php [-D] [-h <mongoDB Server Host>] [-p <mongoDB Port>] [--ssl] [-u <username>] [-x <password>] [-H <Zabbix Server ip/hostname>] [-P <Zabbix Server Port>] -z <Zabbix_Name>
+
+Usage : mikoomi-mongodb-plugin.php [-D] [-h <mongoDB Server Host>] [-p <mongoDB Port>] [--ssl] [-u <username>] [-x <password>] [-H
+<Zabbix Server ip/hostname>] [-P <Zabbix Server Port>] -z <Zabbix_Name>
+
 where
+
    -D    = Run in detail/debug mode
+   
    -h    = Hostname or IP address of server running MongoDB
+   
    -p    = Port number on which to connect to the mongod or mongos process
+   
    -z    = Name (hostname) of MongoDB instance or cluster in the Zabbix UI
+   
    -u    = User name for database authentication
+   
    -x    = Password for database authentication
+   
    -H    = Zabbix server IP or hostname
+   
    -P    = Zabbix server Port or hostname
+   
    --ssl = Use SSL when connecting to MongoDB
+   
 ```
 ZABBIX_HOSTNAME=$(hostname -f)
 * * * * * /etc/zabbix/externalscripts/mikoomi-mongodb-plugin.sh -z $ZABBIX_HOSTNAME
